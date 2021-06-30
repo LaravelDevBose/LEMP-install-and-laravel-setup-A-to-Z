@@ -99,3 +99,30 @@ The terminal will tell you All Done! With this announcement we now have a LEM st
 * cp .env.example .env
 * php artisan key:generate
 * config your .env
+
+## Creating server for each subdomain
+* go to <code>cd /etc/nginx/sites-available</code>
+* Run <code> sudo nano dashboard.example.com </code>
+* Copy and paste the configurations given below
+
+<code> 
+  ## For dashboard.example.com subdomain
+server {
+        listen 80;
+        listen [::]:80;
+        root /var/www/dashboard.example.com;
+        index index.html;
+        server_name dashboard.example.com www.dashboard.example.com;
+}
+</code>
+
+* Make a symbolic link
+
+<code> sudo ln -s /etc/nginx/sites-available/dashboard.example.com /etc/nginx/sites-enabled/dashboard.example.com </code>
+
+*  Testing and Reload Server
+<code>
+ sudo nginx -t
+ sudo systemctl restart nginx
+</code>
+
