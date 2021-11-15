@@ -54,8 +54,7 @@ The terminal will tell you All Done! With this announcement we now have a LEM st
 
         location ~ /\.ht {
                 deny all;
-        }
-}
+        }}
 </code>
 
 * Check Status <code>sudo nginx -t</code>
@@ -70,6 +69,9 @@ The terminal will tell you All Done! With this announcement we now have a LEM st
 * exit and login again with new user
 * Create Database: <code>CREATE DATABASE dbname;</code>
 * Show Databases <code>SHOW DATABASES;</code>
+* update root password <code>ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Current-Root-Password';
+FLUSH PRIVILEGES;</code>
+* show auth state of use <code>SELECT user,authentication_string,plugin,host FROM mysql.user;</code>
 <hr>
 
 # Generate ssh key on server
