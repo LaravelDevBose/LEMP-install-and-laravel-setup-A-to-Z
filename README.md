@@ -128,3 +128,41 @@ server {
  sudo systemctl restart nginx
 </code>
 
+# SSL configuration
+
+<code>
+  
+  server { listen 443 ssl default_server;
+
+        root /var/www/html/medi;
+
+        # Add index.php to the list if you are using PHP
+        index index.php index.html;
+
+        server_name example.xyz www.example.xyz;
+
+        ssl_certificate /etc/ssl/medi_medisquare/example_xyz_chain.crt;
+        ssl_certificate_key /etc/ssl/server.key;
+
+        location / {
+                try_files $uri $uri/ /index.php?$query_string;
+        }
+
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        }
+
+        location ~ /\.ht {
+                deny all;
+        }
+}
+
+server {
+        listen 80;
+        server_name example.xyz;                             
+        return 301 https://www.$host$request_uri;
+  }
+  
+</code>
